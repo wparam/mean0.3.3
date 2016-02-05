@@ -9,8 +9,7 @@ module.exports = function(grunt) {
 		serverJS: ['gruntfile.js', 'server.js', 'config/**/*.js', 'app/**/*.js', '!app/tests/'],
 		clientViews: ['public/modules/**/views/**/*.html'],
 		clientJS: ['public/js/*.js', 'public/modules/**/*.js'],
-		clientCSS: ['public/modules/**/*.css'],
-		mochaTests: ['app/tests/**/*.js']
+		clientCSS: ['public/modules/**/*.css']
 	};
 
 	// Project Configuration
@@ -50,7 +49,7 @@ module.exports = function(grunt) {
 					livereload: true
 				}
 			},
-			mochaTests: {
+            mochaTests: {
 				files: watchFiles.mochaTests,
 				tasks: ['test:server'],
 			}
@@ -134,7 +133,7 @@ module.exports = function(grunt) {
 				NODE_ENV: 'secure'
 			}
 		},
-		mochaTest: {
+        mochaTest: {
 			src: watchFiles.mochaTests,
 			options: {
 				reporter: 'spec',
