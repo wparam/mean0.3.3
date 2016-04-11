@@ -9,10 +9,11 @@ module.exports = function(grunt) {
 		serverJS: ['gruntfile.js', 'server.js', 'config/**/*.js', 'app/**/*.js', '!app/tests/'],
 		clientViews: ['public/modules/**/views/**/*.html'],
 		clientJS: ['public/js/*.js', 'public/modules/**/*.js'],
-		clientCSS: ['public/modules/**/*.css']
+		clientCSS: ['public/modules/**/*.css'],
+        mochaTests: ['app/tests/']
 	};
 
-	// Project Configuration
+	// Project Configuration 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		watch: {

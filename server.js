@@ -5,6 +5,7 @@
 var init = require('./config/init')(),
 	config = require('./config/config'),
 	mongoose = require('mongoose'),
+    Sequelize = require('sequelize'),
 	chalk = require('chalk');
 
 /**
@@ -25,9 +26,15 @@ mongoose.connection.on('error', function(err) {
 	}
 );
 
+var sequelize = new Sequelize('mydb', 'acdev', 'acdev', {
+    host: 'localhost',
+    dialect: 'mysql', 
+});
+
 // Init the express application
 var app = require('./config/express')(db);
 
+require('./app/models/my-users.model.js')(sequelize);
 // Bootstrap passport config
 require('./config/passport')();
 
