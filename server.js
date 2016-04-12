@@ -34,7 +34,7 @@ var sequelize = new Sequelize('mydb', 'acdev', 'acdev', {
 // Init the express application
 var app = require('./config/express')(db);
 
-require('./app/models/my-users.model.js')(sequelize);
+require('./app/models/mysql_models/my-users.model.js')(sequelize);
 // Bootstrap passport config
 require('./config/passport')();
 
