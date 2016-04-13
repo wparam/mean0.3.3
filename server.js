@@ -8,7 +8,7 @@ var init = require('./config/init')(),
     Sequelize = require('sequelize'),
 	chalk = require('chalk');
 
-/**
+/** 
  * Main application entry file.
  * Please note that the order of loading is important.
  */ 
