@@ -20,6 +20,8 @@ var db = mongoose.connect(config.db.uri, config.db.options, function(err) {
 		console.log(chalk.red(err));
 	}
 });
+require('./app/mongo_models/user.server.model.js');
+require('./app/mongo_models/article.server.model.js');
 mongoose.connection.on('error', function(err) {
 	console.error(chalk.red('MongoDB connection error: ' + err));
 	process.exit(-1);
@@ -34,7 +36,7 @@ var sequelize = new Sequelize('mydb', 'acdev', 'acdev', {
 // Init the express application
 var app = require('./config/express')(db);
 
-require('./app/models/mysql_models/my-users.model.js')(sequelize);
+require('./app/mysql_models/my-users.model.js')(sequelize);
 // Bootstrap passport config
 require('./config/passport')();
 
