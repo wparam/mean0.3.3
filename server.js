@@ -6,12 +6,15 @@ var init = require('./config/init')(),
 	config = require('./config/config'),
 	mongoose = require('mongoose'),
     Sequelize = require('sequelize'),
+    //winston = require('winston'),
 	chalk = require('chalk');
 
 /** 
  * Main application entry file.
  * Please note that the order of loading is important.
  */ 
+//winston.add(winston.transports.File, {filename: 'myapp.log'});
+//winston.remove(winston.transports.Console);
 
 // Bootstrap db connection
 var db = mongoose.connect(config.db.uri, config.db.options, function(err) {
@@ -22,6 +25,7 @@ var db = mongoose.connect(config.db.uri, config.db.options, function(err) {
 });
 require('./app/mongo_models/user.server.model.js');
 require('./app/mongo_models/article.server.model.js');
+
 mongoose.connection.on('error', function(err) {
 	console.error(chalk.red('MongoDB connection error: ' + err));
 	process.exit(-1);
@@ -30,13 +34,13 @@ mongoose.connection.on('error', function(err) {
 
 var sequelize = new Sequelize('mydb', 'acdev', 'acdev', {
     host: 'localhost',
-    dialect: 'mysql', 
+    dialect: 'mysql' 
 });
-
 // Init the express application
 var app = require('./config/express')(db);
 
-require('./app/mysql_models/my-users.model.js')(sequelize);
+//require('./app/mysql_models/my-users.model.js')(sequelize);
+require('.//app/mysql_models/index.js')(sequelize);
 // Bootstrap passport config
 require('./config/passport')();
 
