@@ -16,9 +16,9 @@ var fs = require('fs'),
 	cookieParser = require('cookie-parser'),
 	helmet = require('helmet'),
 	passport = require('passport'),
-	mongoStore = require('connect-mongo')({
-		session: session
-	}),
+	// mongoStore = require('connect-mongo')({
+	// 	session: session
+	// }),
 	flash = require('connect-flash'),
 	config = require('./config'),
 	consolidate = require('consolidate'),
@@ -103,10 +103,10 @@ module.exports = function(db) {
 		saveUninitialized: true,
 		resave: true,
 		secret: config.sessionSecret,
-		store: new mongoStore({
-			db: db.connection.db,
-			collection: config.sessionCollection
-		}),
+		// store: new mongoStore({
+		// 	db: db.connection.db,
+		// 	collection: config.sessionCollection
+		// }),
 		cookie: config.sessionCookie,
 		name: config.sessionName
 	}));
