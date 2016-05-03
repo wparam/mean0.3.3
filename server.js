@@ -37,10 +37,8 @@ var sequelize = new Sequelize('mydb', 'acdev', 'acdev', {
     dialect: 'mysql' 
 });
 // Init the express application
-var app = require('./config/express')(db);
+var app = require('./config/express')(sequelize);
 
-//require('./app/mysql_models/my-users.model.js')(sequelize);
-require('.//app/mysql_models/index.js')(sequelize);
 // Bootstrap passport config
 require('./config/passport')();
 

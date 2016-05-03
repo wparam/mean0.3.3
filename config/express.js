@@ -16,6 +16,7 @@ var fs = require('fs'),
 	cookieParser = require('cookie-parser'),
 	helmet = require('helmet'),
 	passport = require('passport'),
+    sessionStore = require('connect-session-sequelize')(session.Store),
 	// mongoStore = require('connect-mongo')({
 	// 	session: session
 	// }),
@@ -29,7 +30,7 @@ module.exports = function(db) {
 	var app = express();
 
 	// Globbing model files
-	config.getGlobbedFiles('./app/models/**/*.js').forEach(function(modelPath) {
+	config.getGlobbedFiles('./app/mysql_models/*.js').forEach(function(modelPath) {
 		require(path.resolve(modelPath));
 	});
 
@@ -103,10 +104,9 @@ module.exports = function(db) {
 		saveUninitialized: true,
 		resave: true,
 		secret: config.sessionSecret,
-		// store: new mongoStore({
-		// 	db: db.connection.db,
-		// 	collection: config.sessionCollection
-		// }),
+		store: new sessionStore({
+			db: db
+		}),
 		cookie: config.sessionCookie,
 		name: config.sessionName
 	}));
