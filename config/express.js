@@ -17,9 +17,6 @@ var fs = require('fs'),
 	helmet = require('helmet'),
 	passport = require('passport'),
     sessionStore = require('connect-session-sequelize')(session.Store),
-	// mongoStore = require('connect-mongo')({
-	// 	session: session
-	// }),
 	flash = require('connect-flash'),
 	config = require('./config'),
 	consolidate = require('consolidate'),
@@ -30,7 +27,7 @@ module.exports = function(db) {
 	var app = express();
 
 	// Globbing model files
-	config.getGlobbedFiles('./app/mysql_models/*.js').forEach(function(modelPath) {
+	config.getGlobbedFiles('./app/models/*.js').forEach(function(modelPath) {
 		require(path.resolve(modelPath));
 	});
 

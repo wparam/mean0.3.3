@@ -4,8 +4,7 @@
  * Module dependencies.
  */
 var passport = require('passport'),
-	LocalStrategy = require('passport-local').Strategy,
-	User = require('mongoose').model('User');
+	LocalStrategy = require('passport-local').Strategy;
 
 module.exports = function() {
 	// Use local strategy

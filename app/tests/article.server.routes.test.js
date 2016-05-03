@@ -3,9 +3,9 @@
 var should = require('should'),
 	request = require('supertest'),
 	app = require('../../server'),
-	mongoose = require('mongoose'),
-	User = mongoose.model('User'),
-	Article = mongoose.model('Article'),
+	// mongoose = require('mongoose'),
+	// User = mongoose.model('User'),
+	// Article = mongoose.model('Article'),
 	agent = request.agent(app);
 
 /**
