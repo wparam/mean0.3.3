@@ -7,6 +7,14 @@ module.exports = function(sequelize){
             field: 'first_name' // Will result in an attribute that is firstName when user facing but first_name in the database
         },
         lastName: {
+            type: Sequelize.STRING,
+            field: 'last_name'
+        },
+        userName:{
+            type: Sequelize.STRING,
+            field: 'user_name'
+        },
+        password:{
             type: Sequelize.STRING
         }
     }, {
@@ -16,8 +24,9 @@ module.exports = function(sequelize){
     User.sync({force: false}).then(function () {
         // Table created
         return User.create({
-            firstName: 'John',
-            lastName: 'Hancock'
+            firstName: 'test',
+            lastName: 'test',
+            userName: 'test'
         });
     });
 };
