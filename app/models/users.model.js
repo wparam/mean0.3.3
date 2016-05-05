@@ -21,12 +21,14 @@ module.exports = function(sequelize){
         freezeTableName: true // Model tableName will be the same as the model name
     });
 
-    User.sync({force: false}).then(function () {
+    User.sync({force: true}).then(function () {
         // Table created
         return User.create({
             firstName: 'test',
             lastName: 'test',
-            userName: 'test'
+            userName: 'test',
+            password: 'test'
         });
     });
+    return User;
 };

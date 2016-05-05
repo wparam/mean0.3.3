@@ -26,10 +26,11 @@ module.exports = function(db) {
 	// Initialize express app
 	var app = express();
 
+    require('../app/models')(db);
 	// Globbing model files
-	config.getGlobbedFiles('./app/models/*.js').forEach(function(modelPath) {
-		require(path.resolve(modelPath));
-	});
+	// config.getGlobbedFiles('./app/models/*.js').forEach(function(modelPath) {
+	// 	require(path.resolve(modelPath));
+	// });
 
 	// Setting application local variables
 	app.locals.title = config.app.title;
