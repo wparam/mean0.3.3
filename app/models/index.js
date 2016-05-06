@@ -7,11 +7,12 @@ var glob = require('glob'),
 
 module.exports = function(sequelize){
     var db = {};
+    ///var user = 
     glob(path.join(__dirname,'./*.model.js'), {sync: true}, function(err, files){
         _.forEach(files, function(n, key){
-            var ob = require(n)(sequelize);
-            console.log(ob);
+            var model = sequelize.import(n);
+            db[model.name] = model;
         });
     });
-    console.log('run index model');
+    return db;
 };

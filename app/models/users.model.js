@@ -1,7 +1,7 @@
 'use strict';
 var Sequelize = require('sequelize');
 module.exports = function(sequelize){
-    var User = sequelize.define('user', {
+    var User = sequelize.define('User', {
         firstName: {
             type: Sequelize.STRING,
             field: 'first_name' // Will result in an attribute that is firstName when user facing but first_name in the database
