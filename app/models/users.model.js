@@ -21,7 +21,7 @@ module.exports = function(sequelize){
         freezeTableName: true // Model tableName will be the same as the model name
     });
 
-    User.sync({force: true}).then(function () {
+    User.sync({force: false}).then(function () {
         // Table created
         return User.create({
             firstName: 'test',
