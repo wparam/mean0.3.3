@@ -32,3 +32,4 @@ module.exports = function(sequelize){
     });
     return User;
 };
+//User belongs to Org
