@@ -177,6 +177,14 @@ module.exports = function(grunt) {
 
 	// Debug task.
 	grunt.registerTask('debug', ['lint', 'copy:localConfig', 'concurrent:debug']);
+    
+    grunt.registerTask('load','Create DB', function(){
+        var models = require('./app/models')();
+        models.User.sync({force:true});
+        models.Organization.sync({force:true});
+        //models.sequelize.sync({force:true});
+        console.log('Finish sync db');
+    });
 
 	// Secure task(s).
 	grunt.registerTask('secure', ['env:secure', 'lint', 'copy:localConfig', 'concurrent:default']);

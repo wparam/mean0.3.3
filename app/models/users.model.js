@@ -18,17 +18,12 @@ module.exports = function(sequelize){
             type: Sequelize.STRING
         }
     }, {
-        freezeTableName: true // Model tableName will be the same as the model name
-    });
-
-    User.sync({force: false}).then(function () {
-        // Table created
-        return User.create({
-            firstName: 'test',
-            lastName: 'test',
-            userName: 'test',
-            password: 'test'
-        });
+        freezeTableName: true, // Model tableName will be the same as the model name
+        classMethods:{
+            bind: function(models){
+                User.belongsTo(models.Organization);
+            }
+        }
     });
     return User;
 };

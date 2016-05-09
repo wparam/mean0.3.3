@@ -6,6 +6,7 @@ var init = require('./config/init')(),
 	config = require('./config/config'),
     Sequelize = require('sequelize'),
     winston = require('winston'),
+    models = require('./app/models'),
 	chalk = require('chalk');
 
 /** 
@@ -15,12 +16,9 @@ var init = require('./config/init')(),
 winston.add(winston.transports.File, {filename: 'myapp.log'});
 winston.remove(winston.transports.Console);
 
-var sequelize = new Sequelize('mydb', 'acdev', 'acdev', {
-    host: 'localhost',
-    dialect: 'mysql' 
-});
+
 // Init the express application
-var app = require('./config/express')(sequelize);
+var app = require('./config/express')(models);
 
 // Bootstrap passport config
 require('./config/passport')();
