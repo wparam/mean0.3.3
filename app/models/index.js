@@ -17,16 +17,16 @@ module.exports = function(){
     ///var user = 
     glob(path.join(__dirname,'./*.model.js'), {sync: true}, function(err, files){
         _.forEach(files, function(n, key){
+            console.log(n);
             var model = sequelize.import(n);
-            console.dir(model);
             db[model.name] = model;
         });
     });
-    // for(var i in db){
-    //     if(db.hasOwnProperty(i) && db.bind){
-    //         db.bind(db);
-    //     }
-    // }
+    Object.keys(db).forEach(function(model, index){
+        if(db[model].bind){
+            db[model].bind(db);
+        }
+    });
     db.sequelize = sequelize;
     db.Sequelize = Sequelize;
     return db;

@@ -97,7 +97,7 @@ module.exports = function(models) {
 		resave: true,
 		secret: config.sessionSecret,
 		store: new sessionStore({
-			db: db
+			db: models.sequelize
 		}),
 		cookie: config.sessionCookie,
 		name: config.sessionName

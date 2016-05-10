@@ -180,10 +180,15 @@ module.exports = function(grunt) {
     
     grunt.registerTask('load','Create DB', function(){
         var models = require('./app/models')();
-        models.User.sync({force:true});
-        models.Organization.sync({force:true});
-        //models.sequelize.sync({force:true});
-        console.log('Finish sync db');
+        var done = this.async();
+        models.sequelize.sync({force:true}).then(function(){
+            console.log('Finish sync db');
+            done();
+        }).catch(function(err){
+            console.log(err);
+            done(err);
+        });
+        
     });
 
 	// Secure task(s).

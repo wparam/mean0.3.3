@@ -16,5 +16,6 @@ module.exports = function(sequelize){
      },{
          freezeTableName: true
      });
+     //Org.sync({force:true});
      return Org;
 };

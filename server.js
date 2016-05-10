@@ -6,15 +6,15 @@ var init = require('./config/init')(),
 	config = require('./config/config'),
     Sequelize = require('sequelize'),
     winston = require('winston'),
-    models = require('./app/models'),
+    models = require('./app/models')(),
 	chalk = require('chalk');
 
 /** 
  * Main application entry file.
  * Please note that the order of loading is important.
  */ 
-winston.add(winston.transports.File, {filename: 'myapp.log'});
-winston.remove(winston.transports.Console);
+// winston.add(winston.transports.File, {filename: 'myapp.log'});
+// winston.remove(winston.transports.Console);
 
 
 // Init the express application

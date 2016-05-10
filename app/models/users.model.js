@@ -25,6 +25,7 @@ module.exports = function(sequelize){
             }
         }
     });
+    //User.sync({force: true});
     return User;
 };
 //User belongs to Org
