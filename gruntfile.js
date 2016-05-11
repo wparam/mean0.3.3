@@ -182,8 +182,12 @@ module.exports = function(grunt) {
         var models = require('./app/models')();
         var done = this.async();
         models.sequelize.sync({force:true}).then(function(){
-            console.log('Finish sync db');
-            done();
+            console.log('sync db');
+            return models.sequelize.query('drop table if exists `Sessions`;').then(function(){
+                done();    
+            }).catch(function(err){
+                console.log('Erro on drop session table');
+            });
         }).catch(function(err){
             console.log(err);
             done(err);

@@ -17,7 +17,6 @@ module.exports = function(){
     ///var user = 
     glob(path.join(__dirname,'./*.model.js'), {sync: true}, function(err, files){
         _.forEach(files, function(n, key){
-            console.log(n);
             var model = sequelize.import(n);
             db[model.name] = model;
         });

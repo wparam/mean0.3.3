@@ -18,6 +18,7 @@ var fs = require('fs'),
 	passport = require('passport'),
     sessionStore = require('connect-session-sequelize')(session.Store),
 	flash = require('connect-flash'),
+    Sequelize = require('sequelize'),
 	config = require('./config'),
 	consolidate = require('consolidate'),
 	path = require('path');
@@ -25,6 +26,11 @@ var fs = require('fs'),
 module.exports = function(models) {
 	// Initialize express app
 	var app = express();
+    
+    var sequelize = new Sequelize('mydb', 'acdev', 'acdev', {
+        host: 'localhost',
+        dialect: 'mysql' 
+    });
 
 	// Setting application local variables
 	app.locals.title = config.app.title;
@@ -90,18 +96,21 @@ module.exports = function(models) {
 
 	// CookieParser should be above session
 	app.use(cookieParser());
-
+    
+    var sstore = new sessionStore({
+			db: sequelize
+		});
 	// Express MongoDB session storage
 	app.use(session({
 		saveUninitialized: true,
 		resave: true,
 		secret: config.sessionSecret,
-		store: new sessionStore({
-			db: models.sequelize
-		}),
+		store: sstore,
 		cookie: config.sessionCookie,
 		name: config.sessionName
 	}));
+    
+    sstore.sync({force: true});
 
 	// use passport session
 	app.use(passport.initialize());
