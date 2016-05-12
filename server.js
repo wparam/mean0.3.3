@@ -13,8 +13,8 @@ var init = require('./config/init')(),
  * Main application entry file.
  * Please note that the order of loading is important.
  */ 
-// winston.add(winston.transports.File, {filename: 'myapp.log'});
-// winston.remove(winston.transports.Console);
+winston.add(winston.transports.File, {filename: 'myapp.log'});
+winston.remove(winston.transports.Console);
 
 
 // Init the express application
