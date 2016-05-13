@@ -36,6 +36,7 @@ function Logger(){
     });
 }
 module.exports = {
+    getLogger : Logger,
 
 	getLogFormat: function() {
 		return config.log.format;
