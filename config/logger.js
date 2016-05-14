@@ -35,27 +35,29 @@ function Logger(){
         exitOnError: false
     });
 }
-module.exports = {
-    getLogger : Logger,
 
-	getLogFormat: function() {
-		return config.log.format;
-	},
+module.exports = Logger;
+// module.exports = {
+//     getLogger : Logger,
 
-	getLogOptions: function() {
-		var options = {};
+// 	getLogFormat: function() {
+// 		return config.log.format;
+// 	},
 
-		try {
-			if ('stream' in config.log.options) {
-				options = {
-					stream: fs.createWriteStream(process.cwd() + '/' + config.log.options.stream, {flags: 'a'})
-				};
-			}
-		} catch (e) {
-			options = {};
-		}
+// 	getLogOptions: function() {
+// 		var options = {};
 
-		return options;
-	}
+// 		try {
+// 			if ('stream' in config.log.options) {
+// 				options = {
+// 					stream: fs.createWriteStream(process.cwd() + '/' + config.log.options.stream, {flags: 'a'})
+// 				};
+// 			}
+// 		} catch (e) {
+// 			options = {};
+// 		}
 
-};
+// 		return options;
+// 	}
+
+// };
