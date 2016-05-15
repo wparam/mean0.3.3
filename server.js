@@ -6,6 +6,7 @@ var init = require('./config/init')(),
 	config = require('./config/config'),
     Sequelize = require('sequelize'),
     winston = require('winston'),
+    logger = require('./config/logger'),
     models = require('./app/models')(),
 	chalk = require('chalk');
 
