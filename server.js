@@ -29,7 +29,7 @@ app.listen(config.port);
 
 // Expose app
 exports = module.exports = app;
-winston.log('debug', 'This is my server');
+logger.info('debug', 'This is my server');
 // Logging initialization
 console.log('--');
 console.log(chalk.green(config.app.title + ' application started'));

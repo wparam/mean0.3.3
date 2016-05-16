@@ -34,6 +34,7 @@ function Logger(){
         ],
         exitOnError: false
     });
+    return logger;
 }
 
 module.exports = Logger;
