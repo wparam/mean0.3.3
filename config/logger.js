@@ -18,14 +18,17 @@ function Logger(){
         transports: [
         new (winston.transports.Console)({
             level: 'debug',
+            humanReadableUnhandledException: true,
             handleExceptions: true,
             json: false,
+            prettyPrint: true,
             colorize: true
         }),
         new (winston.transports.File)({
             level: 'info',
-            filename: './logs/all-logs.log',
+            filename: './log/all-logs.log',
             handleExceptions: true,
+            humanReadableUnhandledException: true,
             json: true,
             maxsize: 5242880, //5MB
             maxFiles: 5,
@@ -37,28 +40,27 @@ function Logger(){
     return logger;
 }
 
-module.exports = Logger;
-// module.exports = {
-//     getLogger : Logger,
+module.exports = {
+    getLogger : Logger(),
 
-// 	getLogFormat: function() {
-// 		return config.log.format;
-// 	},
+	getLogFormat: function() {
+		return config.log.format;
+	},
 
-// 	getLogOptions: function() {
-// 		var options = {};
+	getLogOptions: function() {
+		var options = {};
 
-// 		try {
-// 			if ('stream' in config.log.options) {
-// 				options = {
-// 					stream: fs.createWriteStream(process.cwd() + '/' + config.log.options.stream, {flags: 'a'})
-// 				};
-// 			}
-// 		} catch (e) {
-// 			options = {};
-// 		}
+		try {
+			if ('stream' in config.log.options) {
+				options = {
+					stream: fs.createWriteStream(process.cwd() + '/' + config.log.options.stream, {flags: 'a'})
+				};
+			}
+		} catch (e) {
+			options = {};
+		}
 
-// 		return options;
-// 	}
+		return options;
+	}
 
-// };
+};
