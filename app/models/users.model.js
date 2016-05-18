@@ -10,6 +10,9 @@ module.exports = function(sequelize){
             type: Sequelize.STRING,
             field: 'last_name'
         },
+        email:{
+            type: Sequelize.STRING
+        },
         userName:{
             type: Sequelize.STRING,
             field: 'user_name'
