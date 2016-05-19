@@ -5,7 +5,7 @@
  */
 var _ = require('lodash'),
 	errorHandler = require('../errors.server.controller'),
-	User = require('../../models')().user,
+	User = require('../../models')().User,
 	passport = require('passport');
 
 /**
@@ -14,15 +14,16 @@ var _ = require('lodash'),
 exports.signup = function(req, res) {
 	// For security measurement we remove the roles from the req.body object
 	delete req.body.roles;
-    
-	console.log(req.body);
 	
-	user.findOrCreate({ where: {userName:req}})
-	.spread(function(user, created){
-		console.log(user.get({plain:true}));
-		console.log(created);
+	User.find({ where: {username:req.body.username}})
+	.then(function(user){
+		if(!user)
+			User.create(req.body)
+			.then(function(user){
+				res.json(user);
+			});
 	});
-	
+	return;
 	// Init Variables
 	var user = new User(req.body);
 	var message = null;
