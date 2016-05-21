@@ -1,5 +1,6 @@
 'use strict';
 var Sequelize = require('sequelize');
+
 module.exports = function(sequelize){
     var User = sequelize.define('User', {
         firstName: {
@@ -18,7 +19,10 @@ module.exports = function(sequelize){
             field: 'user_name'
         },
         password:{
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            set: function(val){
+                
+            }
         }
     }, {
         freezeTableName: true, // Model tableName will be the same as the model name
