@@ -1,5 +1,6 @@
 'use strict';
 var Sequelize = require('sequelize');
+const crypto = require('crypto');
 
 module.exports = function(sequelize){
     var User = sequelize.define('User', {
