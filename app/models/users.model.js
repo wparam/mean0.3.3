@@ -1,6 +1,6 @@
 'use strict';
 var Sequelize = require('sequelize');
-const crypto = require('crypto');
+const hmac = require('crypto').createHmac('sha256', 'meanjs');
 
 module.exports = function(sequelize){
     var User = sequelize.define('User', {
@@ -22,7 +22,8 @@ module.exports = function(sequelize){
         password:{
             type: Sequelize.STRING,
             set: function(val){
-                
+                hmac.update(val);
+                this.setDataValue('password', hmac.digest('hex'));
             }
         }
     }, {
