@@ -22,8 +22,13 @@ module.exports = function(sequelize){
         password:{
             type: Sequelize.STRING,
             set: function(val){
-                hmac.update(val);
-                this.setDataValue('password', hmac.digest('hex'));
+                //this function got called anywhere the instance is setting password
+                console.log('~~~hit~~~set~~password~~~');
+                if(val){
+                    hmac.update(val);
+                    this.setDataValue('password', hmac.digest('hex'));
+                }
+                
             }
         }
     }, {
