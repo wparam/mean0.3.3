@@ -6,6 +6,7 @@
 var _ = require('lodash'),
 	errorHandler = require('../errors.server.controller'),
 	User = require('../../models').User,
+	chalk = require('chalk'),
 	passport = require('passport');
 
 /**
@@ -42,7 +43,7 @@ exports.signin = function(req, res, next) {
 			// Remove sensitive data before login
 			user.password = undefined;
 			user.salt = undefined;
-
+			console.log(chalk.yellow('~~after router, in ctrl"s signin~~'));
 			req.login(user, function(err) {
 				if (err) {
 					res.status(400).send(err);

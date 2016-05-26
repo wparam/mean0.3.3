@@ -5,6 +5,7 @@
  */
 var passport = require('passport'),
 	User = require('../../app/models').User,
+	chalk = require('chalk'),
 	LocalStrategy = require('passport-local').Strategy;
 const hmac = require('crypto').createHmac('sha256', 'meanjs');
 
@@ -15,29 +16,7 @@ module.exports = function() {
 			passwordField: 'password'
 		},
 		function(username, password, done) {
-			// User.findOne({
-			// 	username: username
-			// }, function(err, user) {
-			// 	console.log(err);
-			// 	console.log(user);
-			// 	if (err) {
-			// 		return done(err);
-			// 	}
-			// 	if (!user) {
-			// 		return done(null, false, {
-			// 			message: 'Unknown user or invalid password'
-			// 		});
-			// 	}
-			// 	if (!user.authenticate(password)) {
-			// 		return done(null, false, {
-			// 			message: 'Unknown user or invalid password'
-			// 		});
-			// 	}
-
-			// 	return done(null, user);
-			// }, function(err){
-			// 	console.log(err);
-			// });
+			console.log(chalk.green('~~in verify user in local~~~'));
 			hmac.update(password);
 			User.findOne({
 				username: username,
