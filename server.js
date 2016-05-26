@@ -7,7 +7,7 @@ var init = require('./config/init')(),
     Sequelize = require('sequelize'),
     winston = require('winston'),
     logger = require('./config/logger').getLogger,
-    models = require('./app/models')(),
+    models = require('./app/models'),
 	chalk = require('chalk');
 
 /** 

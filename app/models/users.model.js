@@ -3,6 +3,7 @@ var Sequelize = require('sequelize');
 const hmac = require('crypto').createHmac('sha256', 'meanjs');
 
 module.exports = function(sequelize){
+    console.log('~~in user module~~');
     var User = sequelize.define('User', {
         firstName: {
             type: Sequelize.STRING,

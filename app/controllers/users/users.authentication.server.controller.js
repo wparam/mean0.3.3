@@ -5,7 +5,7 @@
  */
 var _ = require('lodash'),
 	errorHandler = require('../errors.server.controller'),
-	User = require('../../models')().User,
+	User = require('../../models').User,
 	passport = require('passport');
 
 /**

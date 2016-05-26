@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 var passport = require('passport'),
-	User = require('../app/models')().User,
+	User = require('../app/models').User,
 	path = require('path'),
 	config = require('./config');
 

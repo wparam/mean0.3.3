@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 var passport = require('passport'),
-	User = require('../../app/models')().User,
+	User = require('../../app/models').User,
 	LocalStrategy = require('passport-local').Strategy;
 const hmac = require('crypto').createHmac('sha256', 'meanjs');
 
