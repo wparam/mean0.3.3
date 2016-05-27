@@ -13,6 +13,11 @@ module.exports = function(sequelize){
             type: Sequelize.STRING,
             field: 'last_name'
         },
+        displayName: {
+            get: function(){
+                return this.getDataValue('firstName') + ' ' + this.getDataValue('last_name');
+            }
+        },
         email:{
             type: Sequelize.STRING
         },
