@@ -3,7 +3,6 @@ var Sequelize = require('sequelize');
 const hmac = require('crypto').createHmac('sha256', 'meanjs');
 
 module.exports = function(sequelize){
-    console.log('~~in user module~~');
     var User = sequelize.define('User', {
         firstName: {
             type: Sequelize.STRING,
@@ -12,11 +11,6 @@ module.exports = function(sequelize){
         lastName: {
             type: Sequelize.STRING,
             field: 'last_name'
-        },
-        displayName: {
-            get: function(){
-                return this.getDataValue('firstName') + ' ' + this.getDataValue('last_name');
-            }
         },
         email:{
             type: Sequelize.STRING
@@ -29,7 +23,6 @@ module.exports = function(sequelize){
             type: Sequelize.STRING,
             set: function(val){
                 //this function got called anywhere the instance is setting password
-                console.log('~~~hit~~~set~~password~~~');
                 if(val){
                     hmac.update(val);
                     this.setDataValue('password', hmac.digest('hex'));
@@ -38,6 +31,9 @@ module.exports = function(sequelize){
             }
         }
     }, {
+        getterMethods:{
+            displayName: function(){return this.getDataValue('firstName') + ' ' + this.getDataValue('lastName');}
+        },
         freezeTableName: true, // Model tableName will be the same as the model name
         classMethods:{
             bind: function(models){
