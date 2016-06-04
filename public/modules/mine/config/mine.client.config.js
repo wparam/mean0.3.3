@@ -5,7 +5,11 @@ angular.module('mine')
     $stateProvider.state('mine', {
         url: '/mine',
         templateUrl: 'modules/mine/views/mine.client.view.html'
-    });
+    })
+	.state('minenew',{
+		url:'/mine/create',
+		templateUrl: 'modules/mine/views/minecreate.client.view.html'
+	});
 }]).run(['Menus',
 	function(Menus) {
 		// Set top bar menu items
