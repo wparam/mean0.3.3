@@ -10,27 +10,6 @@ angular.module('core').service('Menus', [
 		// Define the menus object
 		this.menus = {};
 
-		// A private function for rendering decision 
-		var shouldRender = function(user) {
-			if (user) {
-				if (!!~this.roles.indexOf('*')) {
-					return true;
-				} else {
-					for (var userRoleIndex in user.roles) {
-						for (var roleIndex in this.roles) {
-							if (this.roles[roleIndex] === user.roles[userRoleIndex]) {
-								return true;
-							}
-						}
-					}
-				}
-			} else {
-				return this.isPublic;
-			}
-
-			return false;
-		};
-
 		// Validate menu existance
 		this.validateMenuExistance = function(menuId) {
 			if (menuId && menuId.length) {
@@ -42,8 +21,6 @@ angular.module('core').service('Menus', [
 			} else {
 				throw new Error('MenuId was not provided');
 			}
-
-			return false;
 		};
 
 		// Get the menu object by menu id
@@ -61,8 +38,7 @@ angular.module('core').service('Menus', [
 			this.menus[menuId] = {
 				isPublic: isPublic || false,
 				roles: roles || this.defaultRoles,
-				items: [],
-				shouldRender: shouldRender
+				items: []
 			};
 
 			// Return the menu object
@@ -93,8 +69,7 @@ angular.module('core').service('Menus', [
 				isPublic: ((isPublic === null || typeof isPublic === 'undefined') ? this.menus[menuId].isPublic : isPublic),
 				roles: ((roles === null || typeof roles === 'undefined') ? this.menus[menuId].roles : roles),
 				position: position || 0,
-				items: [],
-				shouldRender: shouldRender
+				items: []
 			});
 
 			// Return the menu object
@@ -116,8 +91,7 @@ angular.module('core').service('Menus', [
 						uiRoute: menuItemUIRoute || ('/' + menuItemURL),
 						isPublic: ((isPublic === null || typeof isPublic === 'undefined') ? this.menus[menuId].items[itemIndex].isPublic : isPublic),
 						roles: ((roles === null || typeof roles === 'undefined') ? this.menus[menuId].items[itemIndex].roles : roles),
-						position: position || 0,
-						shouldRender: shouldRender
+						position: position || 0
 					});
 				}
 			}
