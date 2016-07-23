@@ -52,8 +52,11 @@ module.exports = {
 				'public/lib/startbootstrap-sb-admin-2/bower_components/font-awesome/css/font-awesome.min.css'
 			],
 			js: [
+				'public/lib/lodash/dist/lodash.js',
 				'public/lib/jquery/dist/jquery.js',
 				'public/lib/angular/angular.js',
+				'public/lib/angular-simple-logger/dist/angular-simple-logger.js',
+				'public/lib/angular-google-maps/dist/angular-google-maps.js',
 				'public/lib/bootstrap/dist/js/bootstrap.js',
 				'public/lib/startbootstrap-sb-admin-2/bower_components/metisMenu/dist/metisMenu.min.js',
 				'public/lib/startbootstrap-sb-admin-2/bower_components/raphael/raphael-min.js',

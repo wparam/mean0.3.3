@@ -1,5 +1,4 @@
 <div class="container"  style="display:none">
-	
 	<nav class="collapse navbar-collapse" collapse="!isCollapsed" role="navigation">
 		<ul class="nav navbar-nav" data-ng-if="menu.shouldRender(authentication.user);">
 			<li data-ng-repeat="item in menu.items | orderBy: 'position'" data-ng-if="item.shouldRender(authentication.user);" 
@@ -300,6 +299,9 @@
 					</li>
 					<li>
 						<a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+					</li>
+					<li>
+						<a href="index.html"><i class="fa fa-map-marker fa-fw"></i>Map Dashboard</a>
 					</li>
 					<li>
 						<a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
