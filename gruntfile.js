@@ -154,6 +154,28 @@ module.exports = function(grunt) {
 	            	return !fs.existsSync('config/env/local.js');
 	            }
 		    }
+		},
+		less:{
+			 development: {
+				// options: {
+				// 	paths: ['assets/css']
+				// },
+				files: {
+					'public/build/css/build.css': 'public/modules/**/*.less'
+				}
+			}
+			// production: {
+			// 	options: {
+			// 		paths: ['assets/css'],
+			// 		modifyVars: {
+			// 			imgPath: '"http://mycdn.com/path/to/images"',
+			// 			bgColor: 'red'
+			// 		}
+			// 	},
+			// 	files: {
+			// 		'path/to/result.css': 'path/to/source.less'
+			// 	}
+			// }
 		}
 	});
 
