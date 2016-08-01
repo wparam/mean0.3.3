@@ -53,6 +53,13 @@ module.exports = function(grunt) {
             mochaTests: {
 				files: watchFiles.mochaTests,
 				tasks: ['test:server'],
+			},
+			less:{
+				files: 'public/modules/**/*.less',
+				tasks: ['less'],
+				options: {
+					livereload: true
+				}
 			}
 		},
 		jshint: {
@@ -195,7 +202,7 @@ module.exports = function(grunt) {
 	});
 
 	// Default task(s).
-	grunt.registerTask('default', ['lint', 'copy:localConfig', 'concurrent:default']);
+	grunt.registerTask('default', ['lint', 'less', 'copy:localConfig', 'concurrent:default']);
 
 	// Debug task.
 	grunt.registerTask('debug', ['lint', 'copy:localConfig', 'concurrent:debug']);
@@ -204,7 +211,6 @@ module.exports = function(grunt) {
         var models = require('./app/models')();
         var done = this.async();
         models.sequelize.sync({force:true}).then(function(){
-            console.log('sync db');
             return models.sequelize.query('drop table if exists `Sessions`;').then(function(){
                 done();    
             }).catch(function(err){
@@ -221,7 +227,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('secure', ['env:secure', 'lint', 'copy:localConfig', 'concurrent:default']);
 
 	// Lint task(s).
-	grunt.registerTask('lint', ['jshint', 'csslint']);
+	grunt.registerTask('lint', ['jshint', 'csslint', 'less']);
 
 	// Build task(s).
 	grunt.registerTask('build', ['lint', 'loadConfig', 'ngAnnotate', 'uglify', 'cssmin']);

@@ -70,7 +70,8 @@ module.exports = {
 			]
 		},
 		css: [
-			'public/modules/**/css/*.css'
+			'public/modules/**/css/*.css',
+			'public/build/css/build.css'
 		],
 		js: [
 			'public/config.js',
