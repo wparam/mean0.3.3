@@ -4,29 +4,19 @@
  */
 var init = require('./config/init')(),
 	config = require('./config/config'),
-	mongoose = require('mongoose'),
+    Sequelize = require('sequelize'),
+    winston = require('winston'),
+    logger = require('./config/logger').getLogger,
+    models = require('./app/models'),
 	chalk = require('chalk');
 
-/**
+/** 
  * Main application entry file.
  * Please note that the order of loading is important.
- */
-
-// Bootstrap db connection
-var db = mongoose.connect(config.db.uri, config.db.options, function(err) {
-	if (err) {
-		console.error(chalk.red('Could not connect to MongoDB!'));
-		console.log(chalk.red(err));
-	}
-});
-mongoose.connection.on('error', function(err) {
-	console.error(chalk.red('MongoDB connection error: ' + err));
-	process.exit(-1);
-	}
-);
+ */ 
 
 // Init the express application
-var app = require('./config/express')(db);
+var app = require('./config/express')(models);
 
 // Bootstrap passport config
 require('./config/passport')();
@@ -36,7 +26,7 @@ app.listen(config.port);
 
 // Expose app
 exports = module.exports = app;
-
+logger.info('debug', 'This is my server');
 // Logging initialization
 console.log('--');
 console.log(chalk.green(config.app.title + ' application started'));

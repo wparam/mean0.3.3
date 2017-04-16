@@ -9,10 +9,11 @@ module.exports = function(grunt) {
 		serverJS: ['gruntfile.js', 'server.js', 'config/**/*.js', 'app/**/*.js', '!app/tests/'],
 		clientViews: ['public/modules/**/views/**/*.html'],
 		clientJS: ['public/js/*.js', 'public/modules/**/*.js'],
-		clientCSS: ['public/modules/**/*.css']
+		clientCSS: ['public/modules/**/*.css'],
+        mochaTests: ['app/tests/']
 	};
 
-	// Project Configuration
+	// Project Configuration 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		watch: {
@@ -52,6 +53,13 @@ module.exports = function(grunt) {
             mochaTests: {
 				files: watchFiles.mochaTests,
 				tasks: ['test:server'],
+			},
+			less:{
+				files: 'public/modules/**/*.less',
+				tasks: ['less'],
+				options: {
+					livereload: true
+				}
 			}
 		},
 		jshint: {
@@ -153,6 +161,28 @@ module.exports = function(grunt) {
 	            	return !fs.existsSync('config/env/local.js');
 	            }
 		    }
+		},
+		less:{
+			 development: {
+				// options: {
+				// 	paths: ['assets/css']
+				// },
+				files: {
+					'public/build/css/build.css': 'public/modules/**/*.less'
+				}
+			}
+			// production: {
+			// 	options: {
+			// 		paths: ['assets/css'],
+			// 		modifyVars: {
+			// 			imgPath: '"http://mycdn.com/path/to/images"',
+			// 			bgColor: 'red'
+			// 		}
+			// 	},
+			// 	files: {
+			// 		'path/to/result.css': 'path/to/source.less'
+			// 	}
+			// }
 		}
 	});
 
@@ -172,16 +202,32 @@ module.exports = function(grunt) {
 	});
 
 	// Default task(s).
-	grunt.registerTask('default', ['lint', 'copy:localConfig', 'concurrent:default']);
+	grunt.registerTask('default', ['lint', 'less', 'copy:localConfig', 'concurrent:default']);
 
 	// Debug task.
 	grunt.registerTask('debug', ['lint', 'copy:localConfig', 'concurrent:debug']);
+    
+    grunt.registerTask('load','Create DB', function(){
+        var models = require('./app/models')();
+        var done = this.async();
+        models.sequelize.sync({force:true}).then(function(){
+            return models.sequelize.query('drop table if exists `Sessions`;').then(function(){
+                done();    
+            }).catch(function(err){
+                console.log('Erro on drop session table');
+            });
+        }).catch(function(err){
+            console.log(err);
+            done(err);
+        });
+        
+    });
 
 	// Secure task(s).
 	grunt.registerTask('secure', ['env:secure', 'lint', 'copy:localConfig', 'concurrent:default']);
 
 	// Lint task(s).
-	grunt.registerTask('lint', ['jshint', 'csslint']);
+	grunt.registerTask('lint', ['jshint', 'csslint', 'less']);
 
 	// Build task(s).
 	grunt.registerTask('build', ['lint', 'loadConfig', 'ngAnnotate', 'uglify', 'cssmin']);

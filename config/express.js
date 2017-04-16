@@ -16,22 +16,21 @@ var fs = require('fs'),
 	cookieParser = require('cookie-parser'),
 	helmet = require('helmet'),
 	passport = require('passport'),
-	mongoStore = require('connect-mongo')({
-		session: session
-	}),
+    sessionStore = require('connect-session-sequelize')(session.Store),
 	flash = require('connect-flash'),
+    Sequelize = require('sequelize'),
 	config = require('./config'),
 	consolidate = require('consolidate'),
 	path = require('path');
 
-module.exports = function(db) {
+module.exports = function(models) {
 	// Initialize express app
 	var app = express();
-
-	// Globbing model files
-	config.getGlobbedFiles('./app/models/**/*.js').forEach(function(modelPath) {
-		require(path.resolve(modelPath));
-	});
+    
+    var sequelize = new Sequelize('mydb', 'acdev', 'acdev', {
+        host: 'localhost',
+        dialect: 'mysql' 
+    });
 
 	// Setting application local variables
 	app.locals.title = config.app.title;
@@ -97,19 +96,21 @@ module.exports = function(db) {
 
 	// CookieParser should be above session
 	app.use(cookieParser());
-
+    
+    var sstore = new sessionStore({
+			db: sequelize
+		});
 	// Express MongoDB session storage
 	app.use(session({
 		saveUninitialized: true,
 		resave: true,
 		secret: config.sessionSecret,
-		store: new mongoStore({
-			db: db.connection.db,
-			collection: config.sessionCollection
-		}),
+		store: sstore,
 		cookie: config.sessionCookie,
 		name: config.sessionName
 	}));
+    
+    sstore.sync({force: true});
 
 	// use passport session
 	app.use(passport.initialize());

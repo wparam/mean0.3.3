@@ -8,6 +8,11 @@ module.exports = {
 			pass: ''
 		}
 	},
+    mysqldb: {
+        db: 'mydb',
+        user: 'acdev',
+        password: 'acdev'
+    },
 	log: {
 		// Can specify one of 'combined', 'common', 'dev', 'short', 'tiny'
 		format: 'dev',
