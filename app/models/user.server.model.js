@@ -18,7 +18,7 @@ var validateLocalStrategyProperty = function(property) {
  * A Validation function for local strategy password
  */
 var validateLocalStrategyPassword = function(password) {
-	return (this.provider !== 'local' || (password && password.length > 6));
+	return (this.provider !== 'local' );
 };
 
 /**
@@ -56,8 +56,7 @@ var UserSchema = new Schema({
 	},
 	password: {
 		type: String,
-		default: '',
-		validate: [validateLocalStrategyPassword, 'Password should be longer']
+		default: ''
 	},
 	salt: {
 		type: String
@@ -95,7 +94,7 @@ var UserSchema = new Schema({
  * Hook a pre save method to hash the password
  */
 UserSchema.pre('save', function(next) {
-	if (this.password && this.password.length > 6) {
+	if (this.password) {
 		this.salt = crypto.randomBytes(16).toString('base64');
 		this.password = this.hashPassword(this.password);
 	}

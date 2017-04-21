@@ -54,5 +54,12 @@ module.exports = {
 				pass: process.env.MAILER_PASSWORD || 'MAILER_PASSWORD'
 			}
 		}
+	},
+	ldap: {
+		url: 'ldap://jdev.jdomain.com',
+        bindDn: 'cn=manager,cn=Assetcommander,ou=group,dc=jdomain,dc=com',
+        bindCredentials: '1234',
+        searchBase: 'ou=group,dc=jdomain,dc=com',
+        searchFilter: '(uid={{username}})'
 	}
 };
