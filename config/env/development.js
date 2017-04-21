@@ -55,6 +55,7 @@ module.exports = {
 			}
 		}
 	},
+	useLdap: true,
 	ldap: {
 		url: 'ldap://jdev.jdomain.com',
         bindDn: 'cn=manager,cn=Assetcommander,ou=group,dc=jdomain,dc=com',

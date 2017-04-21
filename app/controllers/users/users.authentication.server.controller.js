@@ -69,6 +69,30 @@ exports.signin = function(req, res, next) {
 	})(req, res, next);
 };
 
+exports.ldapsignin = function(req, res, next) {
+	passport.authenticate('ldapauth', function(err, user, info) {
+		if (err || !user) {
+			console.log('~~~~~~~~~~~~~~~pass user error~~~~~~~~~~~~~~~~~~~');
+			console.log(user);
+			res.status(400).send(info);
+		} else {
+			console.log('~~~~~~~~~~~pass user authen~~~~~~~~~~~~~~~~');
+			console.log(user);
+			// Remove sensitive data before login
+			user.password = undefined;
+			user.salt = undefined;
+
+			req.login(user, function(err) {
+				if (err) {
+					res.status(400).send(err);
+				} else {
+					res.json(user);
+				}
+			});
+		}
+	})(req, res, next);
+};
+
 /**
  * Signout
  */
