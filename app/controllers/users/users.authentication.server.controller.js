@@ -5,9 +5,9 @@
  */
 var _ = require('lodash'),
 	errorHandler = require('../errors.server.controller'),
-	User = require('../../models').User,
-	chalk = require('chalk'),
-	passport = require('passport');
+	mongoose = require('mongoose'),
+	passport = require('passport'),
+	User = mongoose.model('User');
 
 /**
  * Signup
@@ -15,20 +15,34 @@ var _ = require('lodash'),
 exports.signup = function(req, res) {
 	// For security measurement we remove the roles from the req.body object
 	delete req.body.roles;
-	
-	User.find({ where: {username:req.body.username}})
-	.then(function(user){
-		if(!user)
-			User.create(req.body)
-			.then(function(user){
-				req.login(user, function(err) {
-					if (err) {
-						res.status(400).send(err);
-					} else {
-						res.json(user);
-					}
-				});
+
+	// Init Variables
+	var user = new User(req.body);
+	var message = null;
+
+	// Add missing user fields
+	user.provider = 'local';
+	user.displayName = user.firstName + ' ' + user.lastName;
+
+	// Then save the user
+	user.save(function(err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
 			});
+		} else {
+			// Remove sensitive data before login
+			user.password = undefined;
+			user.salt = undefined;
+
+			req.login(user, function(err) {
+				if (err) {
+					res.status(400).send(err);
+				} else {
+					res.json(user);
+				}
+			});
+		}
 	});
 };
 
@@ -43,6 +57,31 @@ exports.signin = function(req, res, next) {
 			// Remove sensitive data before login
 			user.password = undefined;
 			user.salt = undefined;
+
+			req.login(user, function(err) {
+				if (err) {
+					res.status(400).send(err);
+				} else {
+					res.json(user);
+				}
+			});
+		}
+	})(req, res, next);
+};
+
+exports.ldapsignin = function(req, res, next) {
+	passport.authenticate('ldapauth', function(err, user, info) {
+		if (err || !user) {
+			console.log('~~~~~~~~~~~~~~~pass user error~~~~~~~~~~~~~~~~~~~');
+			console.log(user);
+			res.status(400).send(info);
+		} else {
+			console.log('~~~~~~~~~~~pass user authen~~~~~~~~~~~~~~~~');
+			console.log(user);
+			// Remove sensitive data before login
+			user.password = undefined;
+			user.salt = undefined;
+
 			req.login(user, function(err) {
 				if (err) {
 					res.status(400).send(err);

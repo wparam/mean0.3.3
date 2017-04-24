@@ -5,9 +5,9 @@
  */
 var _ = require('lodash'),
 	errorHandler = require('../errors.server.controller'),
-	// mongoose = require('mongoose'),
+	mongoose = require('mongoose'),
 	passport = require('passport'),
-	// User = mongoose.model('User'),
+	User = mongoose.model('User'),
 	config = require('../../../config/config'),
 	nodemailer = require('nodemailer'),
 	async = require('async'),

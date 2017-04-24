@@ -4,10 +4,8 @@
  * Module dependencies.
  */
 var passport = require('passport'),
-	User = require('../../app/models').User,
-	chalk = require('chalk'),
-	LocalStrategy = require('passport-local').Strategy;
-const hmac = require('crypto').createHmac('sha256', 'meanjs');
+	LocalStrategy = require('passport-local').Strategy,
+	User = require('mongoose').model('User');
 
 module.exports = function() {
 	// Use local strategy
@@ -16,17 +14,23 @@ module.exports = function() {
 			passwordField: 'password'
 		},
 		function(username, password, done) {
-			console.log(chalk.green('~~in verify user in local~~~'));
-			hmac.update(password);
 			User.findOne({
-				username: username,
-				password: hmac.digest('hex')
-			}).then(function( user) {
+				username: username
+			}, function(err, user) {
+				if (err) {
+					return done(err);
+				}
 				if (!user) {
 					return done(null, false, {
 						message: 'Unknown user or invalid password'
 					});
 				}
+				if (!user.authenticate(password)) {
+					return done(null, false, {
+						message: 'Unknown user or invalid password'
+					});
+				}
+
 				return done(null, user);
 			});
 		}

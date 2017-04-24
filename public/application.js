@@ -4,14 +4,9 @@
 angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfiguration.applicationModuleVendorDependencies);
 
 // Setting HTML5 Location Mode
-angular.module(ApplicationConfiguration.applicationModuleName).config(['$locationProvider', 'uiGmapGoogleMapApiProvider',
-	function($locationProvider, uiGmapGoogleMapApiProvider) {
+angular.module(ApplicationConfiguration.applicationModuleName).config(['$locationProvider',
+	function($locationProvider) {
 		$locationProvider.hashPrefix('!');
-		uiGmapGoogleMapApiProvider.configure({
-			key: 'AIzaSyA5TCEClKP8HHdWf3njtnZAMWGD6pOB3Gw',
-			v: '3.24', //defaults to latest 3.X anyhow
-			libraries: 'weather,geometry,visualization'
-		});
 	}
 ]);
 

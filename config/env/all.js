@@ -45,23 +45,9 @@ module.exports = {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.css',
 				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
-				'public/lib/startbootstrap-sb-admin-2/bower_components/metisMenu/dist/metisMenu.min.css',
-				'public/lib/startbootstrap-sb-admin-2/dist/css/timeline.css',
-				'public/lib/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css',
-				'public/lib/startbootstrap-sb-admin-2/bower_components/morrisjs/morris.css',
-				'public/lib/startbootstrap-sb-admin-2/bower_components/font-awesome/css/font-awesome.min.css'
 			],
 			js: [
-				'public/lib/lodash/dist/lodash.js',
-				'public/lib/jquery/dist/jquery.js',
 				'public/lib/angular/angular.js',
-				'public/lib/angular-simple-logger/dist/angular-simple-logger.js',
-				'public/lib/angular-google-maps/dist/angular-google-maps.js',
-				'public/lib/bootstrap/dist/js/bootstrap.js',
-				'public/lib/startbootstrap-sb-admin-2/bower_components/metisMenu/dist/metisMenu.min.js',
-				'public/lib/startbootstrap-sb-admin-2/bower_components/raphael/raphael-min.js',
-				'public/lib/startbootstrap-sb-admin-2/bower_components/morrisjs/morris.min.js',
-				'public/lib/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js',
 				'public/lib/angular-resource/angular-resource.js',
 				'public/lib/angular-animate/angular-animate.js',
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
@@ -70,8 +56,7 @@ module.exports = {
 			]
 		},
 		css: [
-			'public/modules/**/css/*.css',
-			'public/build/css/build.css'
+			'public/modules/**/css/*.css'
 		],
 		js: [
 			'public/config.js',

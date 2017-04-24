@@ -8,11 +8,6 @@ module.exports = {
 			pass: ''
 		}
 	},
-    mysqldb: {
-        db: 'mydb',
-        user: 'acdev',
-        password: 'acdev'
-    },
 	log: {
 		// Can specify one of 'combined', 'common', 'dev', 'short', 'tiny'
 		format: 'dev',
@@ -59,5 +54,13 @@ module.exports = {
 				pass: process.env.MAILER_PASSWORD || 'MAILER_PASSWORD'
 			}
 		}
+	},
+	useLdap: true,
+	ldap: {
+		url: 'ldap://jdev.jdomain.com',
+        bindDn: 'cn=manager,cn=Assetcommander,ou=group,dc=jdomain,dc=com',
+        bindCredentials: '1234',
+        searchBase: 'ou=group,dc=jdomain,dc=com',
+        searchFilter: '(uid={{username}})'
 	}
 };

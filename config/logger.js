@@ -4,44 +4,14 @@
  * Module dependencies.
  */
 
-var winston = require('winston');
+var morgan = require('morgan');
 var config = require('./config');
 var fs = require('fs');
 
 /**
  * Module init function.
  */
-
-//http://tostring.it/2014/06/23/advanced-logging-with-nodejs/
-function Logger(){
-    var logger = new (winston.Logger)({
-        transports: [
-        new (winston.transports.Console)({
-            level: 'debug',
-            humanReadableUnhandledException: true,
-            handleExceptions: true,
-            json: false,
-            prettyPrint: true,
-            colorize: true
-        }),
-        new (winston.transports.File)({
-            level: 'info',
-            filename: './log/all-logs.log',
-            handleExceptions: true,
-            humanReadableUnhandledException: true,
-            json: true,
-            maxsize: 5242880, //5MB
-            maxFiles: 5,
-            colorize: false 
-        })
-        ],
-        exitOnError: false
-    });
-    return logger;
-}
-
 module.exports = {
-    getLogger : Logger(),
 
 	getLogFormat: function() {
 		return config.log.format;
